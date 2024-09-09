@@ -22,7 +22,7 @@ export default function HeroSlider() {
           clickable: true,
         }}
         modules={[Pagination]}
-        className="block h-screen bg-pink-500 z-0"
+        className="block h-screen"
       >
         <SwiperSlide className="flex items-end justify-center h-full">
           <img

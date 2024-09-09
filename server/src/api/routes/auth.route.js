@@ -3,10 +3,7 @@ import bcrypt from 'bcrypt';
 import {
   registUserHandler,
   loginUserHandler,
-  // logoutUserHandler,
-  deleteUserHandler,
-  getAllUsersHandler,
-  updateUserHandler,
+  logoutUserHandler,
 } from '../controllers/user.controller.js';
 
 import { uploadSingle } from '../helpers/multerHelper.js';
@@ -17,6 +14,6 @@ router.post('/register', uploadSingle('avatar'), registUserHandler);
 
 router.post('/login', loginUserHandler);
 
-// router.post('/logout', logoutUserHandler);
+router.post('/logout', logoutUserHandler);
 
 export default router;

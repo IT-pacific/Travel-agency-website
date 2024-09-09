@@ -59,7 +59,7 @@ const Contact = () => {
             Send Us Message
           </h3>
           <div>
-            <form className="flex flex-col space-y-4">
+            <form className="flex flex-col space-y-4" method="POST">
               <input
                 type="text"
                 name="name"

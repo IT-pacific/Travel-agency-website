@@ -7,6 +7,8 @@ export const getUserByEmail = async (email) => {
       email: email,
     },
   });
+
+  if (!user) return null;
   return user;
 };
 
@@ -21,11 +23,12 @@ export const createUser = async (data) => {
       names: data.names,
       country: data.country,
       profilePicture: data.picture || null,
-      username: data.username,
       email: data.email,
       password: data.password,
     },
   });
+
+  if (!user) return null;
 
   return user;
 };

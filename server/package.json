@@ -8,7 +8,8 @@
     "start": "nodemon ./src/api/server.js",
     "prisma:generate": "prisma generate --schema=./src/api/models/prisma/schema.prisma",
     "prisma:migrate": "prisma migrate dev --schema=./src/api/models/prisma/schema.prisma",
-    "prisma:studio": "prisma studio --schema=./src/api/models/prisma/schema.prisma"
+    "prisma:studio": "prisma studio --schema=./src/api/models/prisma/schema.prisma",
+    "prisma:push": "prisma db push --schema=./src/api/models/prisma/schema.prisma"
   },
   "author": "",
   "license": "MIT",
@@ -20,9 +21,11 @@
     "@prisma/client": "^5.19.0",
     "bcrypt": "^5.1.1",
     "colors": "^1.4.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1"
   }
 }

@@ -6,13 +6,20 @@ import {
   getPackagesHandler,
   updatePackageHandler,
 } from '../controllers/packageController.js';
+import verifyToken from '../middlewares/verifyToken.js';
+import { uploadSingle } from '../helpers/multerHelper.js';
 
 const router = express.Router();
 
-router.post('/package', createPackageHandler);
-router.get('/package', getPackagesHandler);
+router.post(
+  '/create',
+  verifyToken,
+  uploadSingle('thumbnail'),
+  createPackageHandler
+);
+router.get('/all', getPackagesHandler);
 router.put('/package', updatePackageHandler);
-router.delete('/package/:id', deletePackageHandler);
-router.get('/package/:id', getPackageHandler);
+router.delete('/:id', deletePackageHandler);
+router.get('/:id', getPackageHandler);
 
 export default router;

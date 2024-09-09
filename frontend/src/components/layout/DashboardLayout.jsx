@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import Toast from '../common/Toast';
 import { DashboardHeader, DashboradSidebar } from '../sections/index';
 
 const DashboardLayout = () => {

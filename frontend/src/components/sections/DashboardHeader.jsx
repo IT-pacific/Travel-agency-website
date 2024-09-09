@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaAngleDown, FaBars, FaBell, FaEnvelope } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { apiRequest } from '../../utils/apiRoute';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const DashboardHeader = ({ sidebarOpen, setSidebarOpen }) => {
   const [userModelOpen, setUserModelOpen] = useState(false);
+  const { updateUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogoutClick = async (e) => {
+    // logout server request
+    try {
+      const res = await apiRequest.post('/auth/logout');
+      if (!res.data.Ok) return console.log('something went wrong');
+
+      // redirect to dashboard login page
+      updateUser(null);
+      navigate('/Dashboard-pannel');
+    } catch (error) {
+      console.log("Can't logout for some reason");
+    }
+  };
   return (
     <div className="flex items-center justify-between px-3 border-b border-zinc-300 py-2">
       <div className="sm:hidden">
@@ -36,13 +54,12 @@ const DashboardHeader = ({ sidebarOpen, setSidebarOpen }) => {
           >
             setting
           </Link>
-          <Link
-            to="/dashboard/logout"
-            className="p-1 rounded-sm hover:bg-red-500"
-            onClick={() => setUserModelOpen((prev) => !prev)}
+          <span
+            className="p-1 rounded-sm hover:bg-red-500 cursor-pointer"
+            onClick={handleLogoutClick}
           >
             logout
-          </Link>
+          </span>
         </div>
       </div>
     </div>

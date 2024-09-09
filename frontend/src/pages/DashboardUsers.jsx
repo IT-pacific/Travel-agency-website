@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { apiRequest } from '../utils/apiRoute';
+import Spinner from '../components/common/Spinner';
 
 const DashboardUsers = () => {
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null);
   const handleCreateUserSubmit = async (e) => {
     e.preventDefault();
 
+    // Set loading indicator
+    setLoading(true);
     const formData = new FormData(e.target);
-    const user = await apiRequest.post('/auth/register', formData, {
-      headers: {
-        'Content-Type': 'application/form-data',
-      },
-    });
+
+    try {
+      const user = await apiRequest.post('/auth/register', formData, {
+        headers: {
+          'Content-Type': 'application/form-data',
+        },
+      });
+
+      // Remove loading indicator after request
+      setLoading(false);
+      setResponse(user.data.msg);
+      setTimeout(() => setResponse(null), 3000);
+    } catch (error) {
+      setLoading(false);
+      setResponse('Something went wrong try again.');
+      setTimeout(() => setResponse(null), 3000);
+      console.log('Error: ' + error);
+    }
   };
   return (
     <div>
@@ -54,10 +72,11 @@ const DashboardUsers = () => {
           />
           <button
             type="submit"
-            className="bg-green-600 text-white rounded-md py-1"
+            className="bg-green-600 text-white rounded-md py-1 text-center"
           >
-            Create
+            {loading ? <Spinner /> : <span>Create</span>}
           </button>
+          {response && <div>{response}</div>}
         </form>
       </div>
     </div>

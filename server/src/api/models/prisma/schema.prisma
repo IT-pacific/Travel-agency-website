@@ -27,8 +27,8 @@ model RolePermission {
   roleId       Int
   permissionId Int
 
-  role       Role       @relation(fields: [roleId], references: [id])
-  permission Permission @relation(fields: [permissionId], references: [id])
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@id([roleId, permissionId])
 }
@@ -53,8 +53,8 @@ model UserRole {
   userId Int
   roleId Int
 
-  user User @relation(fields: [userId], references: [id])
-  role Role @relation(fields: [roleId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@id([userId, roleId])
 }
@@ -67,7 +67,7 @@ model Post {
   slug        String           @unique @db.VarChar(255)
   createdAt   DateTime         @default(now()) @db.Timestamp(6)
   updatedAt   DateTime         @default(now()) @db.Timestamp(6) @updatedAt
-  user        User            @relation(fields: [userId], references: [id])
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   contentBlocks PostContentBlock[]
 }
 
@@ -80,7 +80,7 @@ model PostContentBlock {
   position    Int
   createdAt   DateTime @default(now()) @db.Timestamp(6)
   updatedAt   DateTime @default(now()) @db.Timestamp(6) @updatedAt
-  post        Post     @relation(fields: [postId], references: [id])
+  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 // Packages model
@@ -88,6 +88,7 @@ model Package {
   id          Int             @id @default(autoincrement())
   title       String          @db.VarChar(255)
   description String          @db.Text
+  thumbnail   String          @db.VarChar(255)
   departureLocation String    @db.VarChar(255)
   departureTime String        @db.VarChar(255) 
   price       Decimal?        @db.Decimal(10, 2)
@@ -104,9 +105,9 @@ model Itinerary {
   packageId   Int
   dayNumber   Int
   title       String   @db.VarChar(255)
-  picture     String   @db.VarChar(255)
+  picture     String?   @db.VarChar(255)
   description String   @db.Text
-  package     Package  @relation(fields: [packageId], references: [id])
+  package     Package  @relation(fields: [packageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 // PackageBookmarks model
@@ -115,8 +116,8 @@ model PackageBookmark {
   userId     Int
   packageId  Int
   createdAt  DateTime @default(now()) @db.Timestamp(6)
-  user       User     @relation(fields: [userId], references: [id])
-  package    Package  @relation(fields: [packageId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  package    Package  @relation(fields: [packageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 // Messages model

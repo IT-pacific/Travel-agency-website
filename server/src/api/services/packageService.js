@@ -2,19 +2,42 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // Create package
-export const createPackage = async (data) => {
-  const item = prisma.package.create({
-    data: {
-      title: data.title,
-      description: data.description,
-      departureLocation: data.departureLocation,
-      departureTime: data.departureTime,
-      price: data.price,
-      duration: data.duration,
-    },
-  });
+export const createPackage = async (
+  title,
+  description,
+  departure,
+  time,
+  duration,
+  thumbnail,
+  itineraries
+) => {
+  try {
+    const item = await prisma.package.create({
+      data: {
+        title,
+        description,
+        departureLocation: departure,
+        departureTime: time,
+        thumbnail,
+        duration,
+        itineraries: {
+          create: itineraries.map((itinerary) => ({
+            dayNumber: parseInt(itinerary.day),
+            title: itinerary.title,
+            description: itinerary.description,
+          })),
+        },
+      },
+      include: {
+        itineraries: true, // Include related itineraries in the result
+      },
+    });
 
-  return item;
+    return item;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
 
 // Get single package
@@ -31,7 +54,7 @@ export const getPackage = async (id) => {
 export const getPackages = async (take, skip) => {
   const item = await prisma.package.findMany({
     take,
-    skip
+    skip,
   });
   return item;
 };

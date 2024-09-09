@@ -7,6 +7,7 @@ import {
   FaPlus,
   FaUser,
 } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const DashboradSidebar = () => {
   return (
@@ -19,30 +20,30 @@ const DashboradSidebar = () => {
 
       <ul className="flex flex-col items-center gap-4">
         <li className="p-2 w-full hover:bg-zinc-400">
-          <a
-            href="/dashboard"
+          <Link
+            to="/dashboard"
             className="flex items-center justify-start gap-2"
           >
             <span className="h-6 w-6 rounded-full bg-emerald-200 flex items-center justify-center">
               <FaHouseUser className=" text-slate-950" />
             </span>
             <span>Dashboard</span>
-          </a>
+          </Link>
         </li>
         <li className="p-2 w-full hover:bg-zinc-400">
-          <a
-            href="/dashboard/company"
+          <Link
+            to="/dashboard/company"
             className="flex items-center justify-start gap-2"
           >
             <span className="h-6 w-6 rounded-full bg-emerald-200 flex items-center justify-center">
               <FaHouseUser className=" text-slate-950" />
             </span>
             <span>company</span>
-          </a>
+          </Link>
         </li>
         <li className="p-2 w-full hover:bg-zinc-400">
-          <a
-            href="/dashboard/package/create"
+          <Link
+            to="/dashboard/package/create"
             className="flex items-center justify-start gap-2"
           >
             <span className="h-6 w-6 rounded-full bg-emerald-200 flex items-center justify-center">
@@ -50,62 +51,62 @@ const DashboradSidebar = () => {
               <FaPlus className=" text-slate-950" />
             </span>
             <span>create package</span>
-          </a>
+          </Link>
         </li>
         <li className="p-2 w-full hover:bg-zinc-400">
-          <a
-            href="/dashboard/package"
+          <Link
+            to="/dashboard/packages"
             className="flex items-center justify-start gap-2"
           >
             <span className="h-6 w-6 rounded-full bg-emerald-200 flex items-center justify-center">
               <FaHouseUser className=" text-slate-950" />
             </span>
             <span>packages</span>
-          </a>
+          </Link>
         </li>
         <li className="p-2 w-full hover:bg-zinc-400">
-          <a
-            href="/dashboard/post/create"
+          <Link
+            to="/dashboard/post/create"
             className="flex items-center justify-start gap-2"
           >
             <span className="h-6 w-6 rounded-full bg-emerald-200 flex items-center justify-center">
               <FaPlus className=" text-slate-950" />
             </span>
             <span>create post</span>
-          </a>
+          </Link>
         </li>
         <li className="p-2 w-full hover:bg-zinc-400">
-          <a
-            href="/dashboard/posts"
+          <Link
+            to="/dashboard/posts"
             className="flex items-center justify-start gap-2"
           >
             <span className="h-6 w-6 rounded-full bg-emerald-200 flex items-center justify-center">
               <FaNewspaper className=" text-slate-950" />
             </span>
             <span>blog posts</span>
-          </a>
+          </Link>
         </li>
         <li className="p-2 w-full hover:bg-zinc-400">
-          <a
-            href="/dashboard/users"
+          <Link
+            to="/dashboard/users"
             className="flex items-center justify-start gap-2"
           >
             <span className="h-6 w-6 rounded-full bg-emerald-200 flex items-center justify-center">
               <FaUser className=" text-slate-950" />
             </span>
             <span>users</span>
-          </a>
+          </Link>
         </li>
         <li className="p-2 w-full hover:bg-zinc-400">
-          <a
-            href="/dashboard/setting"
+          <Link
+            to="/dashboard/setting"
             className="flex items-center justify-start gap-2"
           >
             <span className="h-6 w-6 rounded-full bg-emerald-200 flex items-center justify-center">
               <FaAngleDoubleLeft className=" text-slate-950" />
             </span>
             <span>setting</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

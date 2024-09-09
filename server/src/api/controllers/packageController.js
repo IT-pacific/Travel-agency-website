@@ -40,38 +40,20 @@ export const getPackagesHandler = async (req, res, next) => {
 
 // Create package
 export const createPackageHandler = async (req, res, next) => {
-  const {
+  const { title, description, departure, time, duration } = req.body;
+  const itineraries = JSON.parse(req.body.itineraries);
+  const thumbnail = req.file ? req.file.filename : null;
+
+  const response = await createPackage(
     title,
     description,
-    departureLocation,
-    departureTime,
-    price,
+    departure,
+    time,
     duration,
-  } = req.body;
-
-  const data = {
-    title,
-    description,
-    departureLocation,
-    departureTime,
-    price,
-    duration,
-  };
-
-  if (!title || !description || !price || !duration) {
-    const error = new Error('All fields are required');
-    error.status = codes.BAD_REQUEST;
-    next(error);
-  }
-
-  const item = await createPackage(data);
-
-  if (!item) {
-    const error = new Error('package not created');
-    return next(error);
-  }
-
-  res.status(codes.OK).json({ package: item, responseOk: true });
+    thumbnail,
+    itineraries
+  );
+  res.json(response);
 };
 
 // Update package

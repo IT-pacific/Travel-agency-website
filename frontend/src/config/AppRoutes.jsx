@@ -16,6 +16,11 @@ import {
   PackageInfo,
   DashboardLogin,
   DashboardUsers,
+  DashboardCompany,
+  CreatePackage,
+  CreatePost,
+  DashboardPackages,
+  DashboardPosts,
 } from '../pages/index';
 
 const AppRoutes = () => {
@@ -34,6 +39,11 @@ const AppRoutes = () => {
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashboardHome />} />
           <Route path="/dashboard/users" element={<DashboardUsers />} />
+          <Route path="/dashboard/company" element={<DashboardCompany />} />
+          <Route path="/dashboard/package/create" element={<CreatePackage />} />
+          <Route path="/dashboard/packages" element={<DashboardPackages />} />
+          <Route path="/dashboard/post/create" element={<CreatePost />} />
+          <Route path="/dashboard/posts" element={<DashboardPosts />} />
         </Route>
       </>
     )

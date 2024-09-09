@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { FaAngleRight, FaEnvelope, FaLock } from 'react-icons/fa';
 import { apiRequest } from '../utils/apiRoute.jsx';
+import Spinner from '../components/common/Spinner.jsx';
+import { AuthContext } from '../providers/AuthProvider.jsx';
 
 const DashboardLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null);
+  const navigate = useNavigate();
+  const { updateUser, currentUser } = useContext(AuthContext);
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     const userCredentials = {
@@ -18,8 +25,22 @@ const DashboardLogin = () => {
         Headers: { 'Content-Type': 'application/json' },
       });
 
-      console.log(res.data);
+      // redirect to dashboard
+      setLoading(false);
+      if (!res.data.Ok) {
+        setLoading(false);
+        setResponse(res.data.msg);
+        return setTimeout(() => setResponse(null), 3000);
+      }
+
+      // Redirect user to dashboard on login success
+      updateUser(res.data.userInfo);
+      navigate('/dashboard');
     } catch (error) {
+      // Set failure message
+      setLoading(false);
+      setResponse('Something went wrong try again');
+      setTimeout(() => setResponse(null), 3000);
       console.log('Error: ' + error);
     }
   };
@@ -39,7 +60,7 @@ const DashboardLogin = () => {
               <input
                 type="email"
                 name="email"
-                id=""
+                id="email"
                 placeholder="Email"
                 className="py-3 pl-9 rounded-md w-full border border-zinc-300"
                 onChange={(e) => setEmail(e.target.value)}
@@ -50,7 +71,7 @@ const DashboardLogin = () => {
               <input
                 type="password"
                 name="password"
-                id=""
+                id="password"
                 placeholder="Password"
                 className="py-3 pl-9 rounded-md w-full border border-zinc-300"
                 onChange={(e) => setPassword(e.target.value)}
@@ -59,10 +80,13 @@ const DashboardLogin = () => {
 
             <button
               type="submit"
-              className="flex items-center justify-center gap-3 bg-emerald-600 text-white font-bold py-3 rounded-lg"
+              className="flex items-center justify-center gap-3 bg-emerald-600 text-white font-bold py-1 rounded-lg"
             >
-              login <FaAngleRight />
+              {loading ? <Spinner /> : <span>login</span>}
             </button>
+            {response && (
+              <div className="text-center text-red-500">{response}</div>
+            )}
           </form>
         </div>
       </div>
