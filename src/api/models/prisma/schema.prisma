@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Roles model
+model Role {
+  id          Int          @id @default(autoincrement())
+  roleName    String       @db.VarChar(255)
+  permissions RolePermission[]
+  userRoles   UserRole[]
+}
+
+//Permissions model
+model Permission {
+  id          Int          @id @default(autoincrement())
+  permissionName String   @db.VarChar(255)
+  rolePermissions RolePermission[]
+}
+
+// RolePermissions model 
+model RolePermission {
+  roleId       Int
+  permissionId Int
+
+  role       Role       @relation(fields: [roleId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([roleId, permissionId])
+}
+
+// User Model
+model User {
+  id              Int      @id @default(autoincrement())
+  names           String   @db.VarChar(255)
+  country         String   @db.VarChar(255)
+  profilePicture  String?  @db.VarChar(255)
+  email           String   @unique @db.VarChar(255)
+  password        String   @db.VarChar(255)
+  createdAt       DateTime @default(now()) @db.Timestamp(6)
+  updatedAt       DateTime @default(now()) @db.Timestamp(6) @updatedAt
+  roles           UserRole[]
+  posts           Post[]
+  bookmarks       PackageBookmark[]
+}
+
+//UserRoles model 
+model UserRole {
+  userId Int
+  roleId Int
+
+  user User @relation(fields: [userId], references: [id])
+  role Role @relation(fields: [roleId], references: [id])
+
+  @@id([userId, roleId])
+}
+
+// Posts model
+model Post {
+  id          Int              @id @default(autoincrement())
+  userId      Int
+  title       String           @db.VarChar(255)
+  slug        String           @unique @db.VarChar(255)
+  createdAt   DateTime         @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime         @default(now()) @db.Timestamp(6) @updatedAt
+  user        User            @relation(fields: [userId], references: [id])
+  contentBlocks PostContentBlock[]
+}
+
+// PostContentBlocks model
+model PostContentBlock {
+  id          Int      @id @default(autoincrement())
+  postId      Int
+  contentType String   @db.VarChar(50)
+  contentData String   @db.Text
+  position    Int
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime @default(now()) @db.Timestamp(6) @updatedAt
+  post        Post     @relation(fields: [postId], references: [id])
+}
+
+// Packages model
+model Package {
+  id          Int             @id @default(autoincrement())
+  title       String          @db.VarChar(255)
+  description String          @db.Text
+  departureLocation String    @db.VarChar(255)
+  departureTime String        @db.VarChar(255) 
+  price       Decimal?        @db.Decimal(10, 2)
+  duration    String          @db.VarChar(50)
+  createdAt   DateTime        @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime        @default(now()) @db.Timestamp(6) @updatedAt
+  itineraries Itinerary[]
+  bookmarks   PackageBookmark[]
+}
+
+// Itineraries model
+model Itinerary {
+  id          Int      @id @default(autoincrement())
+  packageId   Int
+  dayNumber   Int
+  title       String   @db.VarChar(255)
+  picture     String   @db.VarChar(255)
+  description String   @db.Text
+  package     Package  @relation(fields: [packageId], references: [id])
+}
+
+// PackageBookmarks model
+model PackageBookmark {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  packageId  Int
+  createdAt  DateTime @default(now()) @db.Timestamp(6)
+  user       User     @relation(fields: [userId], references: [id])
+  package    Package  @relation(fields: [packageId], references: [id])
+}
+
+// Messages model
+model Message {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  email      String   @db.VarChar(255)
+  country    String   @db.VarChar(255)
+  message    String   @db.Text
+  createdAt  DateTime @default(now()) @db.Timestamp(6)
+}
+
+// CompanyInfo model
+model CompanyInfo {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  description String   @db.Text
+  mission     String?  @db.Text
+  vision      String?  @db.Text
+  history     String?  @db.Text
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime @default(now()) @db.Timestamp(6) @updatedAt
+}
+
+// Services model
+model Service {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  description String?  @db.Text
+  thumbnail   String?  @db.VarChar(255)
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime @default(now()) @db.Timestamp(6) @updatedAt
+}
+
+// Partners model
+model Partner {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  description String?  @db.Text
+  logo        String?  @db.VarChar(255)
+  websiteUrl  String?  @db.VarChar(255)
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime @default(now()) @db.Timestamp(6) @updatedAt
+}
+
+
