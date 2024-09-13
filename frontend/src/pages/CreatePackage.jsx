@@ -72,7 +72,7 @@ const CreatePackage = () => {
       <div className="my-5 flex items-center justify-end">
         <Link
           to={'/dashboard/packages'}
-          className="text-center py-2 px-5 rounded-lg bg-green-700 text-white"
+          className="text-center py-2 px-5 rounded-lg bg-green-500 text-white"
         >
           Browse All package
         </Link>
@@ -81,7 +81,7 @@ const CreatePackage = () => {
         onSubmit={handleSubmit}
         className="border rounded-lg p-5 flex flex-col gap-3 md:h-[450px] overflow-y-scroll"
       >
-        <div className="flex items-center gap-4 text-green-600">
+        <div className="flex items-center gap-4 text-green-500">
           <span>Create new package</span>{' '}
           <span className="h-[30px] w-[30px] rounded-full border border-zinc-300 flex items-center justify-center">
             <FaThumbsUp />
@@ -239,7 +239,7 @@ const CreatePackage = () => {
         </button>
         <button
           type="submit"
-          className="py-2 px-5 bg-green-600 text-white rounded-lg inline-block w-[200px]"
+          className="py-2 px-5 bg-green-500 text-white rounded-lg inline-block w-[200px]"
         >
           {loading ? <Spinner /> : <span>Create package</span>}
         </button>

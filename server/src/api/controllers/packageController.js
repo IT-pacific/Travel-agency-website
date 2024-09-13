@@ -14,7 +14,7 @@ export const getPackageHandler = async (req, res, next) => {
   const item = await getPackage(parseInt(id));
 
   if (!item) {
-    const error = new Error('Item wasnot found');
+    const error = new Error('Item was not found');
     error.status = 404;
     return next(error);
   }
@@ -25,7 +25,7 @@ export const getPackageHandler = async (req, res, next) => {
 // Get Multiple packages
 export const getPackagesHandler = async (req, res, next) => {
   let take = 6;
-  let page = 1;
+  let page = 0;
   let skip = take * page;
   const items = await getPackages(take, skip);
 
@@ -35,7 +35,7 @@ export const getPackagesHandler = async (req, res, next) => {
     return next(error);
   }
 
-  return res.status(codes.OK).json({ package: items, responseOk: true });
+  return res.status(codes.OK).json({ package: items, Ok: true });
 };
 
 // Create package

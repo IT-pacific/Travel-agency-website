@@ -32,7 +32,8 @@ app.use(cookieParser());
 
 // Parse frontend static files
 const path = basePath();
-// app.use(express.static(join(path, 'dist')));
+console.log(path);
+app.use('/uploads', express.static(join(path, 'uploads')));
 
 // Routes
 
@@ -50,7 +51,7 @@ app.use('/api/test', testRoute);
 app.use(notFound);
 app.use(errorHandler);
 
-// Startinf server
+// Starting server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

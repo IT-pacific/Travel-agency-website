@@ -1,59 +1,66 @@
-import React from 'react';
-import { useRef, useEffect } from 'react';
-import logo from '../../assets/vite.svg';
+import africaHabitant from '../../assets/partners/africaHabitant.png';
+import afripark from '../../assets/partners/afripark.png';
+import chamberOfTourism from '../../assets/partners/chamber-of-tourism.png';
+import dianaFossey from '../../assets/partners/diana-fossey.png';
+import rtta from '../../assets/partners/rtta.png';
+import visitRwanda from '../../assets/partners/visit-rwanda.png';
 
 const Partners = () => {
-  const scrollerRef = useRef(null);
-
-  // useEffect(() => {
-  //   const scroller = scrollerRef.current;
-
-  //   if (!window.matchMedia('(prefer-reduced-motion: reduce)').matches) {
-  //     scroller.dataset.animated = true;
-
-  //     const innerScroller = scroller.querySelector('.scroller__inner');
-  //     const scrollerContent = Array.from(innerScroller.children);
-
-  //     scrollerContent.forEach((item) => {
-  //       const duplicateItem = item.cloneNode(true);
-  //       duplicateItem.setAttribute('aria-hidden', true);
-  //       innerScroller.appendChild(duplicateItem);
-  //     });
-  //   }
-  // }, []);
-
+  const name = 'partber image';
   return (
-    <div className="mb-10">
-      <div>
-        <h2 className="text-xl font-semibold text-center py-10 md:text-3xl md:font-extrabold">
-          Our Partners
-        </h2>
-        <div ref={scrollerRef}>
-          <div className="flex items-center justify-center flex-wrap gap-2 scroller__inner">
-            <div className="flex flex-col gap-3 w-[12rem] aspect-square">
-              <img src="./assets/logo-1.jpg" alt="partner logo" />
-              <h3>Organization name</h3>
-            </div>
-            <div className="flex flex-col gap-3 w-[12rem] aspect-square">
-              <img src="./assets/logo-1.jpg" alt="partner logo" />
-              <h3>Organization name</h3>
-            </div>
-            <div className="flex flex-col gap-3 w-[12rem] aspect-square">
-              <img src="./assets/logo-1.jpg" alt="partner logo" />
-              <h3>Organization name</h3>
-            </div>
-            <div className="flex flex-col gap-3 w-[12rem] aspect-square">
-              <img src="./assets/logo-1.jpg" alt="partner logo" />
-              <h3>Organization name</h3>
-            </div>
-            <div className="flex flex-col gap-3 w-[12rem] aspect-square">
-              <img src="./assets/logo-1.jpg" alt="partner logo" />
-              <h3>Organization name</h3>
-            </div>
-            <div className="flex flex-col gap-3 w-[12rem] aspect-square">
-              <img src="./assets/logo-1.jpg" alt="partner logo" />
-              <h3>Organization name</h3>
-            </div>
+    <div className="md:w-[1000px] md:mx-auto">
+      <h2 className="py-3 text-xl text-center font-semibold lg:font-extrabold lg:text-3xl lg:py-4">
+        Our partners
+      </h2>
+      <div className="flex flex-wrap items-center gap-2 my-10">
+        <div className="bg-white shadow-md rounded-md overflow-hidden w-48 mx-auto">
+          <img
+            src={africaHabitant}
+            alt={name}
+            className="w-full h-full object-cover"
+          />
+          <div className="p-4">
+            <h3 className="text-sm font-semibold text-center">
+              African habitant explorer
+            </h3>
+          </div>
+        </div>
+        <div className="bg-white shadow-md rounded-md overflow-hidden w-48 mx-auto">
+          <img
+            src={afripark}
+            alt={name}
+            className="w-full h-full object-cover"
+          />
+          <div className="p-4">
+            <h3 className="text-sm font-semibold text-center">africanparks</h3>
+          </div>
+        </div>
+        <div className="bg-white shadow-md rounded-md overflow-hidden w-48 mx-auto">
+          <img
+            src={visitRwanda}
+            alt={name}
+            className="w-full h-full object-cover"
+          />
+          <div className="p-4">
+            <h3 className="text-sm font-semibold text-center">Visit Rwanda</h3>
+          </div>
+        </div>
+        <div className="bg-white shadow-md rounded-md overflow-hidden w-48 mx-auto">
+          <img
+            src={dianaFossey}
+            alt={name}
+            className="w-full h-full object-cover"
+          />
+          <div className="p-4">
+            <h3 className="text-sm font-semibold text-center">
+              Diana fossey gorilla fund
+            </h3>
+          </div>
+        </div>
+        <div className="bg-white shadow-md rounded-md overflow-hidden w-48 mx-auto">
+          <img src={rtta} alt={name} className="w-full h-full object-cover" />
+          <div className="p-4">
+            <h3 className="text-sm font-semibold text-center">RTTA</h3>
           </div>
         </div>
       </div>

@@ -18,19 +18,19 @@ const Contact = () => {
             <span>
               <FaMapMarker />
             </span>
-            <span>Lorem, ipsum dolor.</span>
+            <span>Remera, Kigali,Airport roads.</span>
           </div>
           <div className="flex gap-2 items-center justify-start">
             <span>
               <FaEnvelope />
             </span>
-            <span>Lorem, ipsum dolor.</span>
+            <span>info@eco-consciouslife.com</span>
           </div>
           <div className="flex gap-2 items-center justify-start">
             <span>
               <FaPhone />
             </span>
-            <span>Lorem ipsum dolor sit.</span>
+            <span>+250 789 558 651</span>
           </div>
           <div className="flex items-center justify-start gap-3">
             <span>

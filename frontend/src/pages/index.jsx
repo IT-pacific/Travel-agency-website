@@ -12,6 +12,7 @@ import CreatePackage from './CreatePackage';
 import CreatePost from './CreatePost';
 import DashboardPackages from './DashboardPackages';
 import DashboardPosts from './DashboardPosts';
+import NotFound from './NotFound';
 
 export {
   Home,
@@ -28,4 +29,5 @@ export {
   CreatePost,
   DashboardPackages,
   DashboardPosts,
+  NotFound,
 };

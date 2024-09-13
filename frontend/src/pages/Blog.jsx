@@ -6,7 +6,7 @@ const Blog = () => {
   console.log(page);
   return (
     <>
-      <BlogUpper />
+      {/* <BlogUpper /> */}
       <BlogMain page={page} setPage={setPage} />
     </>
   );

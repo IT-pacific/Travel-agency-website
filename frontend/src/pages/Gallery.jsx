@@ -4,7 +4,7 @@ import { GalleryMain, GalleryUpper } from '../components/sections/index';
 const Gallery = () => {
   return (
     <>
-      <GalleryUpper />
+      {/* <GalleryUpper /> */}
       <GalleryMain />
     </>
   );

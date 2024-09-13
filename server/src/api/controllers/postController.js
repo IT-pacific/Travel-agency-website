@@ -19,7 +19,7 @@ export const getPostHandler = async (req, res, next) => {
     return next(error);
   }
 
-  return res.status(codes.OK).json({ post: post, responseOk: true });
+  return res.status(codes.OK).json({ post: post, Ok: true });
 };
 
 // Get Multiple posts
@@ -27,107 +27,31 @@ export const getPostsHandler = async (req, res, next) => {
   let take = 6;
   let page = 0;
   let skip = take * page;
-  const posts = await getPosts(take, skip);
+  const items = await getPosts(take, skip);
 
-  if (!posts) {
-    const error = new Error('Items were not found');
+  if (!items) {
+    const error = new Error('Item was not found');
     error.status = 404;
     return next(error);
   }
 
-  return res.status(codes.OK).json({ post: posts, responseOk: true });
+  return res.status(codes.OK).json({ posts: items, Ok: true });
 };
 
-// Create post
-// export const createPostHandler = async (req, res, next) => {
-//   return console.log(req.body);
-//   const { title, userId } = req.body;
+export const createPostHandler = (req, res, next) => {
+  const { title, userId } = req.body;
+  const slug = generateSlug(title);
+  const contentBlocks = JSON.parse(req.body.contentBlocks);
+  const thumbnail = req.file ? req.file.filename : null;
 
-//   let slug = generateSlug(title);
+  const response = createPost(title, slug, thumbnail, userId, contentBlocks);
 
-//   console.log(slug);
-//   console.log(userId);
-
-//   const data = {
-//     title,
-//     slug,
-//     userId,
-//   };
-
-//   if (!title || !userId) {
-//     const error = new Error('Something is missing');
-//     error.status = codes.BAD_REQUEST;
-//     next(error);
-//   }
-
-//   const item = await createPost(data);
-
-//   if (!item) {
-//     const error = new Error('post not created');
-//     return next(error);
-//   }
-
-//   res.status(codes.OK).json({ post: item, responseOk: true });
-// };
-
-// ================================================================
-
-export const createPostHandler = async (req, res, next) => {
-  try {
-    // Extract title
-    const title = req.body.title;
-
-    return console.log(title);
-
-    // Initialize the combined array for blog data
-    const combinedData = [];
-
-    // Process uploaded files
-    if (req.files && req.files.length > 0) {
-      req.files.forEach((file) => {
-        combinedData.push({
-          type: 'image',
-          content: {
-            originalName: file.originalname,
-            fileName: file.filename,
-            path: file.path,
-            size: file.size,
-          },
-        });
-      });
-    }
-
-    // Process dynamic content blocks
-    for (const key in req.body) {
-      if (key.startsWith('contentBlock_')) {
-        const index = key.split('_')[1]; // Extract the index from the field name
-        const blockType = req.body[`contentBlock_${index}_type`];
-        const blockContent = req.body[`contentBlock_${index}_content`];
-
-        combinedData.push({
-          type: blockType,
-          content: blockContent,
-        });
-      }
-    }
-
-    // Prepare the final blogData object
-    const blogData = {
-      title: title,
-      contentBlocks: combinedData,
-    };
-
-    // Save blogData into the database
-    // Example: Blog.create(blogData);
-
-    res.status(200).send({
-      message: 'Blog post created successfully!',
-      data: blogData,
+  if (!response)
+    return res.json({
+      msg: 'Something went wrong',
+      Ok: false,
     });
-  } catch (error) {
-    // Handle any errors that occurred during processing
-    next(error);
-  }
+  res.json({ response, Ok: true });
 };
 
 // Update post title

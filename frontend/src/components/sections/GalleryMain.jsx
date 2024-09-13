@@ -11,7 +11,7 @@ import gallery9 from '../../assets/gallery-9.jpg';
 
 const GalleryMain = () => {
   return (
-    <div className="my-10">
+    <div className="my-20">
       <div className="p-3 md:w-[800px] md:mx-auto">
         <div className="flex flex-col gap-3">
           <p className="font-extralight mb-4">

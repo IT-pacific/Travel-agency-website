@@ -5,7 +5,7 @@ const Package = () => {
   const [page, setPage] = useState(0);
   return (
     <>
-      <PackageUpper />
+      {/* <PackageUpper /> */}
       <PackageMain page={page} setPage={setPage} />
     </>
   );

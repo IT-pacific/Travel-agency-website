@@ -46,6 +46,9 @@ export const getPackage = async (id) => {
     where: {
       id: id,
     },
+    include: {
+      itineraries: true,
+    },
   });
   return item;
 };

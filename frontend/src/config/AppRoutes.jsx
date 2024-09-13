@@ -21,6 +21,7 @@ import {
   CreatePost,
   DashboardPackages,
   DashboardPosts,
+  NotFound,
 } from '../pages/index';
 
 const AppRoutes = () => {
@@ -45,6 +46,7 @@ const AppRoutes = () => {
           <Route path="/dashboard/post/create" element={<CreatePost />} />
           <Route path="/dashboard/posts" element={<DashboardPosts />} />
         </Route>
+        <Route path="*" element={<NotFound />}></Route>
       </>
     )
   );

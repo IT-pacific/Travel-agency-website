@@ -2,23 +2,49 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // Create post
-export const createPost = async (data) => {
-  const post = prisma.post.create({
+export const createPost = async (
+  title,
+  slug,
+  thumbnail,
+  userId,
+  contentBlocks
+) => {
+  const createdBlogPost = await prisma.post.create({
     data: {
-      title: data.title,
-      slug: data.slug,
-      userId: data.userId,
+      userId: parseInt(userId), // Ensure userId is an integer
+      title,
+      slug,
+      thumbnail,
+      contentBlocks: {
+        create: contentBlocks.map((block) => ({
+          contentType: block.type, // Corrected field name
+          contentData: block.content, // Corrected field name
+          position: block.order, // Ensure position is used correctly
+        })),
+      },
+    },
+    include: {
+      contentBlocks: {
+        orderBy: {
+          position: 'asc', // Corrected field name
+        },
+      },
     },
   });
 
-  return post;
+  if (!createdBlogPost) return null;
+
+  return createdBlogPost;
 };
 
 // Get single post
 export const getPost = async (slug) => {
   const post = await prisma.post.findFirst({
     where: {
-      slug,
+      slug: slug,
+    },
+    include: {
+      contentBlocks: true,
     },
   });
   return post;
